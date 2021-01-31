@@ -26,10 +26,4 @@ public class ThirdPersonMovement : MonoBehaviour
 
     }
 
-    public void destroy()
-    {
-
-        Destroy(this.gameObject);
-    }
-
 }

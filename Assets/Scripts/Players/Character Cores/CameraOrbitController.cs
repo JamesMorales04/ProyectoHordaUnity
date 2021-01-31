@@ -14,7 +14,8 @@ public class CameraOrbitController : MonoBehaviour
     private RaycastHit hit;
     private Vector3 cameraOffset;
 
-    //private float currentXRotation;
+    [Header("Layer(s) to include")]
+    public LayerMask CamOcclusion;
 
 
     void Start()
@@ -34,9 +35,10 @@ public class CameraOrbitController : MonoBehaviour
 
 
         // Rota al jugador de manera orizontal
-        
 
-        if (invertXRotation) {
+
+        if (invertXRotation)
+        {
             transform.eulerAngles -= Vector3.up * x * lookSensitivity;
         }
         else
@@ -44,13 +46,14 @@ public class CameraOrbitController : MonoBehaviour
             transform.eulerAngles += Vector3.up * x * lookSensitivity;
         }
 
-        if (Physics.Linecast(transform.position, transform.position+ transform.localRotation*cameraOffset, out hit))
+        if (Physics.Linecast(transform.position, transform.position + transform.localRotation * cameraOffset, out hit, CamOcclusion))
         {
-            cameraTarget.localPosition=(new Vector3(0, 1.58f, - Vector3.Distance(transform.position,hit.point)));
+            cameraTarget.localPosition = (new Vector3(0, 1.58f, -Vector3.Distance(transform.position, hit.point)));
         }
-        else {
+        else
+        {
 
-            cameraTarget.localPosition = Vector3.Lerp(cameraTarget.localPosition,cameraOffset,Time.deltaTime);
+            cameraTarget.localPosition = Vector3.Lerp(cameraTarget.localPosition, cameraOffset, Time.deltaTime);
         }
 
         /*
